@@ -34,8 +34,20 @@ a.eval {
     -moz-border-radius: 2em 0;
     -webkit-border-radius: 2em 0;
     border-radius: 2em 0;
-    border: .1em solid #ccc;
-    background: #242f53;
+    /*border: .1em solid #ccc;*/
+    /*background: #242f53;*/
+	background: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0.14, rgb(51,51,51)),
+	    color-stop(0.78, rgb(99,99,99))
+	);
+	background: -moz-linear-gradient(
+	    center bottom,
+	    rgb(51,51,51) 14%,
+	    rgb(99,99,99) 78%
+	);
 }
 
 /** Overview screen */
@@ -53,11 +65,12 @@ a.eval {
     -moz-border-radius: .8em 0 2em;
     -webkit-border-radius: .8em 0 2em;
     border-radius: .8em 0 2em;
-    border-top: .1em solid #ccc;
+    /*border-top: .1em solid #ccc;
     border-left: .1em solid #ccc;
-    left: -.1em;
+    left: -.1em;*/
     text-align: center;
-    background: #1b233f;
+    /*background: #1b233f;*/
+	background: #222;
 }
 .footerContent {
     font-size: .85em;

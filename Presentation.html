@@ -48,7 +48,7 @@
 	
 		<div class="slide">
 			<div class="vcenter">
-				<h1>An Introduction to MongoDB</h1>
+				<h1 class="title">An Introduction to MongoDB</h1>
 				<h4 class="text-center">JC Grubbs</h4>
 				<h4 class="text-center">http://www.thegrubbsian.com</h4>
 				<h4 class="text-center">@thegrubbsian</h4>
@@ -56,60 +56,105 @@
 		</div>
 	
         <div class="slide">
-            <h1>Welcome to Slippy</h1>
-            <h2>Usage</h2>
+            <h1>What is MongoDB</h1>
             <ul>
-                <li>Navigation: [Left]/[Right] arrows to move, [Space] or [Double Click] to go to next slide</li>
-                <li>Overview: [ESC]/[Del]/[Tab] to view, [Click] to pick one slide</li>
-                <li>Jump: Press [0-9] keys followed by [Enter] to go straight to one slide</li>
+                <li>Schema Free</li>
+				<li>Document Oriented</li>
+				<li>High Performance</li>
+				<li>Scalable</li>
+				<li>Multi-Platform</li>
             </ul>
         </div>
 
-        <div class="slide">
-            <h1>H1's are centered by default</h1>
-            <div class="vcenter">
-                <h2>The class "vcenter" on anything</h2>
-                <ul>
-                    <li>centers it</li>
-                    <li>vertically</li>
-                </ul>
-            </div>
+		<div class="slide">
+            <h1>What MongoDB is Not</h1>
+            <ul>
+                <li>Key/Value Store</li>
+				<li>Relational</li>
+				<li>Fully ACID Compliant</li>
+            </ul>
         </div>
 
-        <div class="slide">
-            <h1>Syntax Highlighting</h1>
-            <p>Code is just pre tags with class="brush: &lt;language&gt;"</p>
-            <p>The eval class combined with the js brush makes that Execute link appear on the right</p>
-            <pre class="brush: js eval">
-                // in eval'd block, slide is the current slide
-                $(slide).css('background', '#533');
-                // and node is the code block
-                $(node).css('opacity', '.1');
-            </pre>
-            <p>Nifty feature for JS devs doing presentations</p>
-            <br />
-            <p>Also if you use alert() in your code, it's piped into those nicer boxes</p>
-            <pre class="brush: js eval">
-                alert('test');
-            </pre>
-            <p>This is really great to provide interaction during a presentation</p>
+		<div class="slide">
+			<h1>Who's Using It</h1>
+			<div class="floating-images">
+				<img src="Images/foursquare.png"/>
+				<img src="Images/etsy.gif"/>
+				<img src="Images/eventbrite.png"/>
+				<img src="Images/evite.png"/>
+				<img src="Images/gh.png"/>
+				<img src="Images/logo-disqus.png"/>
+				<img src="Images/logo-floxee.png"/>
+				<img src="Images/logo-justin_tv.png"/>
+				<img src="Images/logo-mogohq.png"/>
+				<img src="Images/logo-times.gif"/>
+				<img src="Images/squarespace.jpeg"/>
+				<img src="Images/sugar.gif"/>
+			</div>
+		</div>
+
+		<div class="slide">
+            <h1>BSON</h1>
+			<p>MongoDB stores data in BSON which is a JSON-like binary format.</p>
+			<pre class="brush: text">
+				{"hello": "world"}
+				
+				"\x16\x00\x00\x00\x02hello\x00
+				\x06\x00\x00\x00world\x00\x00"
+			</pre>
+			
+			<pre class="brush: text">
+				{"SomeArray": ["awesome", 5.05, 1986]}
+				
+				"1\x00\x00\x00\x04SomeArray\x00&\x00
+				 \x00\x00\x020\x00\x08\x00\x00 
+				 \x00awesome\x00\x011\x00333333
+				 \x14@\x102\x00\xc2\x07\x00\x00
+				 \x00\x00"
+			</pre>
+			
+			<a href="http://bsonspec.org">http://bsonspec.org</a>
         </div>
 
-        <div class="slide">
-            <h1>Syntax Highlighting</h1>
-            <pre class="brush: php">
-                function foo($var) {
-                    // this is some php code as an example
-                    $foo = new Class("meh");
-                    $foo->bar();
-                }
-            </pre>
-            <p>That's it for now, enjoy!</p>
+		<div class="slide">
+			<h1>Indexing</h1>
+			<ul>
+				<li>MongoDB supports basic indexing scenarios you might find in a relational store.</li>
+				<li>Indices are stored in a simple b-tree structure.</li>
+				<li>Indices can be created on embedded documents.</li>
+				<li>An index on an embedded array will index each item in the array. (Very powerful)</li>
+			</ul>
+		</div>
+		
+		
+		
+		
+		
+
+
+		<div class="slide">
+            <h1>Some Key Characteristics</h1>
+            <ul>
+                <li>Stores data in BSON (Binary JSON)</li>
+				<li>Serialization occurs in the clients</li>
+				<li>Supports standard indexing options</li>
+				<li>Implements a query language</li>
+				<li>Has a JavaScript administration shell</li>
+				<li>Supports master/slave style replication</li>
+				<li>Plays well with many languages</li>
+				<li>ObjectId</li>
+            </ul>
         </div>
+
+
+		<div class="slide">
+			<h1></h1>
+		</div>
 
         <div class="footer">
 			<span class="right"><a href="http://www.mongodb.org">mongodb.org</a></span>
             <span class="left">An Introduction to MongoDB</span>
+			<span class="right"><a href="http://www.thegrubbsian.com">thegrubbsian.com</a></span>
             <span class="left">JC Grubbs</span>
             <hr class="defloat" />
         </div>

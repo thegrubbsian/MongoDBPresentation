@@ -177,3 +177,8 @@ div.floating-images {
 		float: left;
 		margin: 15px;
 	}
+
+table.table td {
+	padding: 10px;
+	border: 1px solid #999;
+}

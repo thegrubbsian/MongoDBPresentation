@@ -55,6 +55,8 @@
 			</div>
 		</div>
 	
+	
+	
         <div class="slide">
             <h1>What is MongoDB</h1>
             <ul>
@@ -66,6 +68,8 @@
             </ul>
         </div>
 
+
+
 		<div class="slide">
             <h1>What MongoDB is Not</h1>
             <ul>
@@ -74,6 +78,8 @@
 				<li>Fully ACID Compliant</li>
             </ul>
         </div>
+
+
 
 		<div class="slide">
 			<h1>Who's Using It</h1>
@@ -92,6 +98,29 @@
 				<img src="Images/sugar.gif"/>
 			</div>
 		</div>
+		
+		<div class="slide">
+			<h1>Documents and Collections</h1>
+			<p>MongoDB stores data in documents.  Think of them as JSON structures.</p>
+			<pre class="brush: text">
+				{
+					OrderNumber: 123,
+					OrderDate: Date(2010,1,1),
+					Items: [
+						{ SKU: 12345, Name: "Hammer" },
+						{ SKU: 54321, Name: "Box of Nails" },
+						{ SKU: 13579, Name: "Pine Planks" }
+					],
+					CreditCard: {
+						Type: "Visa",
+						Number: 1234123412341234,
+						Expiration: Date(2011,7,1)
+					}
+				}
+			</pre>
+		</div>
+
+
 
 		<div class="slide">
             <h1>BSON</h1>
@@ -116,6 +145,8 @@
 			<a href="http://bsonspec.org">http://bsonspec.org</a>
         </div>
 
+
+
 		<div class="slide">
 			<h1>Indexing</h1>
 			<ul>
@@ -128,10 +159,30 @@
 		
 		
 		
+		<div class="slide">
+			<h1>Document Identity</h1>
+			<ul>
+				<li>Every root document must have an <code>_id</code> property.</li>
+				<li>MongoDB uses a special BSON type called ObjectId to uniquely identify documents.</li>
+				<li>You do not have to use ObjectId but it is very useful</li>
+				<li>If you do not assign a value for <code>_id</code> the database will create the attribute for you.</li>
+			</ul>
+			
+			<br/><br/>
+			
+			<p>ObjectId is a 12-byte unique identifier made up of the following:</p>
+			
+			<table class="table"> 
+			<tbody><tr><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td>
+			<td>7</td><td>8</td><td>9</td><td>10</td><td>11</td></tr> 
+			<tr><td colspan="4">time</td><td colspan="3">machine</td> 
+			<td colspan="2">pid</td><td colspan="3">inc</td></tr> 
+			</tbody></table>
+			
+		</div>
 		
 		
-
-
+		
 		<div class="slide">
             <h1>Some Key Characteristics</h1>
             <ul>
@@ -143,13 +194,18 @@
 				<li>Supports master/slave style replication</li>
 				<li>Plays well with many languages</li>
 				<li>ObjectId</li>
+				<li>Memory Mapped Files</li>
+				<li>Allows for interesting schema designs</li>
             </ul>
         </div>
 
 
+
 		<div class="slide">
-			<h1></h1>
+			<h1 class="vcenter">}</h1>
 		</div>
+
+
 
         <div class="footer">
 			<span class="right"><a href="http://www.mongodb.org">mongodb.org</a></span>

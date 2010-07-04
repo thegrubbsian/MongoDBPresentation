@@ -179,6 +179,13 @@ div.floating-images {
 	}
 
 table.table td {
-	padding: 10px;
+	padding: 0.4em;
 	border: 1px solid #999;
+}
+
+a.doclink {
+	display: block;
+	font-size: 0.8em;
+	margin-top: 1em;
+	color: #cac9f9;
 }

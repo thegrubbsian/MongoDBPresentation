@@ -114,6 +114,10 @@
 					}
 				}
 			</pre>
+			<ul>
+				<li>Collections are just named sets of root documents.</li>
+				<li>You might equate a document with a row in a relational store and collections with tables.</li>
+			</ul>
 		</div>
 
 
@@ -139,6 +143,14 @@
 			</pre>
 			
 			<a class="doclink" href="http://bsonspec.org">http://bsonspec.org</a>
+			
+			<br/>
+			
+			<ul>
+				<li>Serialization and deserialization of data structures occurs in the language drivers, not on the server itself.</li>
+				<li>Each driver may implement the BSON specification in a manner that is most efficient for that platform.</li>
+			</ul>
+			
         </div>
 
 
@@ -147,9 +159,20 @@
 			<h1>Indexing</h1>
 			<ul>
 				<li>MongoDB supports basic indexing scenarios you might find in a relational store.</li>
-				<li>Indices are stored in a simple b-tree structure.</li>
+				<li>Indices are stored as document references in a simple b-tree structure.</li>
 				<li>Indices can be created on embedded documents.</li>
 				<li>An index on an embedded array will index each item in the array. (Very powerful)</li>
+				<li>MongoDB supports geospatial indexing which enables additional query operators.</li>
+			</ul>
+			
+			<br/><br/>
+			
+			<h3>Current Limitations</h3>
+			<ul>
+				<li>A collection can only have 40 indices defined.</li>
+				<li>Queries only use one index at a time.</li>
+				<li>Map/Reduce does not use indices.</li>
+				<li>Most RegEx queries will not use an index.</li>
 			</ul>
 			
 			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Indexes">http://www.mongodb.org/display/DOCS/Indexes</a>
@@ -184,20 +207,8 @@
 		
 		
 		<div class="slide">
-            <h1>Some Key Characteristics</h1>
-            <ul>
-                <li>Stores data in BSON (Binary JSON)</li>
-				<li>Serialization occurs in the clients</li>
-				<li>Supports standard indexing options</li>
-				<li>Implements a query language</li>
-				<li>Has a JavaScript administration shell</li>
-				<li>Supports master/slave style replication</li>
-				<li>Plays well with many languages</li>
-				<li>ObjectId</li>
-				<li>Memory Mapped Files</li>
-				<li>Allows for interesting schema designs</li>
-            </ul>
-        </div>
+			<h1>Query Syntax</h1>
+		</div>
 
 
 

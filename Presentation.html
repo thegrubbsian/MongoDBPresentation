@@ -98,7 +98,7 @@
 		<div class="slide">
 			<h1>Documents and Collections</h1>
 			<p>MongoDB stores data in documents.  Think of them as JSON structures.</p>
-			<pre class="brush: text">
+			<pre class="brush:text">
 				{
 					OrderNumber: 123,
 					OrderDate: Date(2010,1,1),
@@ -125,14 +125,14 @@
 		<div class="slide">
             <h1>BSON</h1>
 			<p>MongoDB stores data in BSON which is a JSON-like binary format.</p>
-			<pre class="brush: text">
+			<pre class="brush:text">
 				{"hello": "world"}
 				
 				"\x16\x00\x00\x00\x02hello\x00
 				\x06\x00\x00\x00world\x00\x00"
 			</pre>
 			
-			<pre class="brush: text">
+			<pre class="brush:text">
 				{"SomeArray": ["awesome", 5.05, 1986]}
 				
 				"1\x00\x00\x00\x04SomeArray\x00&\x00
@@ -208,6 +208,48 @@
 		
 		<div class="slide">
 			<h1>Query Syntax</h1>
+			<p>
+				MongoDB has a unique but powerful query syntax.  Even so most of the language
+				drivers abstract it in some way.
+			</p>
+			
+			<pre class="brush:text">
+				// where first name is 'Bill'
+				db.User.find({ FirstName: "Bill" }) 
+				
+				// where first name is 'Bill' return only _id and LastName
+				db.User.find({ FirstName: "Bill" }, { _id: 1, LastName: 1 })
+				
+				// where age is greater than 35
+				db.User.find({ Age: { $gt: 35 } })
+				
+				// where department's director is 'John'
+				db.user.find({ "Department.Director.FirstName": "John" })
+			</pre>
+			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Querying">http://www.mongodb.org/display/DOCS/Querying</a>
+		</div>
+		
+		
+		
+		<div class="slide">
+			<h1>Query Syntax (cont.)</h1>
+			
+		</div>
+		
+		
+		
+		<div class="slide">
+			<h1>Language Drivers</h1>
+			<p>There are numerous drivers to choose from in many languages:</p>
+			
+			<table class="table">
+				<tbody>
+					<tr>
+						
+					</tr>
+				</tbody>
+			</table>
+			
 		</div>
 
 

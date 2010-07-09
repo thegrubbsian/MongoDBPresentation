@@ -98,7 +98,7 @@
 		<div class="slide">
 			<h1>Documents and Collections</h1>
 			<p>MongoDB stores data in documents.  Think of them as JSON structures.</p>
-			<pre class="brush:text">
+			<pre class="brush:js">
 				{
 					OrderNumber: 123,
 					OrderDate: new Date(2010,1,1),
@@ -213,8 +213,7 @@
 				MongoDB has a unique but powerful query syntax.  Even so most of the language
 				drivers abstract it in some way.
 			</p>
-			
-			<pre class="brush:text">
+			<pre class="brush:js">
 				// where first name is 'Bill'
 				db.User.find({ FirstName: "Bill" }) 
 				
@@ -225,7 +224,10 @@
 				db.User.find({ Age: { $gt: 35 } })
 				
 				// where department's director is 'John'
-				db.user.find({ "Department.Director.FirstName": "John" })
+				db.User.find({ "Department.Director.FirstName": "John" })
+				
+				// sort by last name ascending and first name descending
+				db.User.find().sort({ LastName: 1, FirstName: -1 })
 			</pre>
 			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Querying">http://www.mongodb.org/display/DOCS/Querying</a>
 		</div>
@@ -234,7 +236,29 @@
 		
 		<div class="slide">
 			<h1>Query Syntax (cont.)</h1>
-			
+			<pre class="brush:js">
+				// limiting results
+				db.User.find({ Age: { $gt: 5 } }).skip(20).limit(10)
+				db.User.find({ Age: { $gt: 5 } }, 20, 10)
+				
+				
+			</pre>
+		</div>
+		
+		
+		
+		<div class="slide">
+			<h1>Query Syntax (cont. again)</h1>
+			<pre class="brush:js">
+				// inserting a new document
+				db.User.save({ FirstName: "William", LastName: "Edwards" })
+				
+				// updating a property of a document
+				db.User.update({ LastName: "Edwards" }, { FirstName: "Bill" })
+				
+				// deleting a document
+				db.User.remove({ Age: { $lt: 35 } })
+			</pre>
 		</div>
 		
 		

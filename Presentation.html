@@ -101,7 +101,7 @@
 			<pre class="brush:text">
 				{
 					OrderNumber: 123,
-					OrderDate: Date(2010,1,1),
+					OrderDate: new Date(2010,1,1),
 					Items: [
 						{ SKU: 12345, Name: "Hammer" },
 						{ SKU: 54321, Name: "Box of Nails" },
@@ -110,13 +110,14 @@
 					CreditCard: {
 						Type: "Visa",
 						Number: 1234123412341234,
-						Expiration: Date(2011,7,1)
+						Expiration: new Date(2011,7,1)
 					}
 				}
 			</pre>
 			<ul>
 				<li>Collections are just named sets of root documents.</li>
-				<li>You might equate a document with a row in a relational store and collections with tables.</li>
+				<li>You might equate a document with a rows and collections with tables.</li>
+				<li>Collections can contain documents with varying shapes.</li>
 			</ul>
 		</div>
 
@@ -124,7 +125,7 @@
 
 		<div class="slide">
             <h1>BSON</h1>
-			<p>MongoDB stores data in BSON which is a JSON-like binary format.</p>
+			<p>MongoDB stores data in BSON, which is a JSON-like binary format.</p>
 			<pre class="brush:text">
 				{"hello": "world"}
 				

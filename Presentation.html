@@ -182,6 +182,29 @@
 		
 		
 		<div class="slide">
+			<h1>Indexing (cont.)</h1>
+			<pre class="brush:js">
+				// create an index on the Username attribute
+				db.User.ensureIndex({ Username: 1 });
+				
+				// create a unique index on the Username attribute
+				db.User.ensureIndex({ Username: 1 }, { unique: true });
+				
+				// create a multi-attribute index
+				db.User.ensureIndex({ Username: 1, "Department.ID": 1 });
+				
+				// rebuilding an index
+				db.User.reIndex();
+				
+				// dropping an index
+				db.User.dropIndexes();
+				db.User.dropIndex({ Username: 1 })
+			</pre>
+		</div>
+		
+		
+		
+		<div class="slide">
 			<h1>Document Identity</h1>
 			<ul>
 				<li>Every root document must have an <code>_id</code> property.</li>
@@ -215,19 +238,19 @@
 			</p>
 			<pre class="brush:js">
 				// where first name is 'Bill'
-				db.User.find({ FirstName: "Bill" }) 
+				db.User.find({ FirstName: "Bill" });
 				
 				// where first name is 'Bill' return only _id and LastName
-				db.User.find({ FirstName: "Bill" }, { _id: 1, LastName: 1 })
+				db.User.find({ FirstName: "Bill" }, { _id: 1, LastName: 1 });
 				
 				// where age is greater than 35
-				db.User.find({ Age: { $gt: 35 } })
+				db.User.find({ Age: { $gt: 35 } });
 				
 				// where department's director is 'John'
-				db.User.find({ "Department.Director.FirstName": "John" })
+				db.User.find({ "Department.Director.FirstName": "John" });
 				
 				// sort by last name ascending and first name descending
-				db.User.find().sort({ LastName: 1, FirstName: -1 })
+				db.User.find().sort({ LastName: 1, FirstName: -1 });
 			</pre>
 			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Querying">http://www.mongodb.org/display/DOCS/Querying</a>
 		</div>
@@ -238,11 +261,22 @@
 			<h1>Query Syntax (cont.)</h1>
 			<pre class="brush:js">
 				// limiting results
-				db.User.find({ Age: { $gt: 5 } }).skip(20).limit(10)
-				db.User.find({ Age: { $gt: 5 } }, 20, 10)
+				db.User.find({ Age: { $gt: 5 } }).skip(20).limit(10);
+				db.User.find({ Age: { $gt: 5 } }, 20, 10);
 				
+				// return the count of a query
+				db.User.find({ "Department.Name": "IT" }).count();
 				
+				// return a distinct list of a single value
+				db.User.distinct("LastName");
+				
+				// check the existence of at least one document
+				db.User.find({ Username: { $exists: "sbarrows" } });
+				
+				// check if a value is in a list
+				db.User.find({ "Department.Number": { $in: [75,22,34,102] } });
 			</pre>
+			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Advanced+Queries">http://www.mongodb.org/display/DOCS/Advanced+Queries</a>
 		</div>
 		
 		
@@ -251,14 +285,25 @@
 			<h1>Query Syntax (cont. again)</h1>
 			<pre class="brush:js">
 				// inserting a new document
-				db.User.save({ FirstName: "William", LastName: "Edwards" })
+				db.User.save({ FirstName: "William", LastName: "Edwards" });
 				
 				// updating a property of a document
-				db.User.update({ LastName: "Edwards" }, { FirstName: "Bill" })
+				db.User.update({ LastName: "Edwards" }, { FirstName: "Bill" });
 				
 				// deleting a document
-				db.User.remove({ Age: { $lt: 35 } })
+				db.User.remove({ Age: { $lt: 35 } });
 			</pre>
+		</div>
+		
+		
+		
+		<div class="slide">
+			<h1>Map/Reduce</h1>
+			<p>
+				In MongoDB Map/Reduce works by taking map and reduce functions and generating
+				a new collection.  This collection can be temporary or be made permanent.  This is slightly
+				different than Map/Reduce implementations in other NoSQL platforms like CouchDB.
+			</p>
 		</div>
 		
 		

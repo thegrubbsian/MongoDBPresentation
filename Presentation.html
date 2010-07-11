@@ -80,20 +80,40 @@
 		<div class="slide">
 			<h1>Who's Using It</h1>
 			<div class="floating-images">
-				<img src="Images/foursquare.png"/>
-				<img src="Images/etsy.gif"/>
-				<img src="Images/eventbrite.png"/>
-				<img src="Images/evite.png"/>
-				<img src="Images/gh.png"/>
-				<img src="Images/logo-disqus.png"/>
-				<img src="Images/logo-floxee.png"/>
-				<img src="Images/logo-justin_tv.png"/>
-				<img src="Images/logo-mogohq.png"/>
-				<img src="Images/logo-times.gif"/>
-				<img src="Images/squarespace.jpeg"/>
-				<img src="Images/sugar.gif"/>
-				<img src="Images/crew-logo.png"/>
+				<table>
+					<tr>
+						<td>
+							<img src="Images/foursquare.png"/>
+							<img src="Images/evite.png"/>
+							<img src="Images/gh.png"/>
+							<img src="Images/logo-disqus.png"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<img src="Images/logo-mogohq.png"/>
+							<img src="Images/logo-times.gif"/>
+							<img src="Images/squarespace.jpeg"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<img src="Images/sugar.gif"/>
+							<img src="Images/crew-logo.png"/>
+							<img src="Images/logo-justin_tv.png"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<img src="Images/bitly.png"/>
+							<img src="Images/logo-sourceforge.png"/>
+							<img src="Images/shutterfly.jpeg"/>
+							<img src="Images/logo-floxee.png"/>
+						</td>
+					</tr>
+				</table>
 			</div>
+			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Production+Deployments">http://www.mongodb.org/display/DOCS/Production+Deployments</a>
 		</div>
 		
 		<div class="slide">
@@ -159,54 +179,6 @@
 
 
 		<div class="slide">
-			<h1>Indexing</h1>
-			<ul>
-				<li>Supports basic indexing scenarios you might find in a relational store.</li>
-				<li>Indices are stored as document references in a simple b-tree structure.</li>
-				<li>Indices can be created on embedded documents.</li>
-				<li>An index on an embedded array will index each item in the array. (Very powerful especially with sparse attributes).</li>
-				<li>Supports geospatial indexing which enables additional query operators.</li>
-			</ul>
-			
-			<br/><br/>
-			
-			<h3>Current Limitations</h3>
-			<ul>
-				<li>A collection can only have 40 indices defined.</li>
-				<li>Queries only use one index at a time.</li>
-				<li>Map/Reduce does not use indices.</li>
-				<li>Most RegEx queries will not use an index.</li>
-			</ul>
-			
-			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Indexes">http://www.mongodb.org/display/DOCS/Indexes</a>
-		</div>
-		
-		
-		
-		<div class="slide">
-			<h1>Indexing (cont.)</h1>
-			<pre class="brush:js">
-				// create an index on the Username attribute
-				db.User.ensureIndex({ Username: 1 });
-				
-				// create a unique index on the Username attribute
-				db.User.ensureIndex({ Username: 1 }, { unique: true });
-				
-				// create a multi-attribute index
-				db.User.ensureIndex({ Username: 1, "Department.ID": 1 });
-				
-				// rebuilding an index
-				db.User.reIndex();
-				
-				// dropping an index
-				db.User.dropIndexes();
-				db.User.dropIndex({ Username: 1 })
-			</pre>
-		</div>
-		
-		
-		
-		<div class="slide">
 			<h1>Document Identity</h1>
 			<ul>
 				<li>Every root document must have an <code>_id</code> property.</li>
@@ -255,6 +227,7 @@
 				db.User.find().sort({ LastName: 1, FirstName: -1 });
 			</pre>
 			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Querying">http://www.mongodb.org/display/DOCS/Querying</a>
+			<a class="doclink" href="http://www.mongodb.org/display/DOCS/SQL+to+Mongo+Mapping+Chart">http://www.mongodb.org/display/DOCS/SQL+to+Mongo+Mapping+Chart</a>
 		</div>
 		
 		
@@ -294,6 +267,57 @@
 				
 				// deleting a document
 				db.User.remove({ Age: { $lt: 35 } });
+				
+				// using functions to locate documents (won't use indexes)
+				db.User.find(function () { return this.Department.Name == "IT"; });
+			</pre>
+		</div>
+		
+		
+		
+		<div class="slide">
+			<h1>Indexing</h1>
+			<ul>
+				<li>Supports basic indexing scenarios you might find in a relational store.</li>
+				<li>Indices are stored as document references in a simple b-tree structure.</li>
+				<li>Indices can be created on embedded documents.</li>
+				<li>An index on an embedded array will index each item in the array. (Very powerful especially with sparse attributes).</li>
+				<li>Supports geospatial indexing which enables additional query operators.</li>
+			</ul>
+			
+			<br/><br/>
+			
+			<h3>Current Limitations</h3>
+			<ul>
+				<li>A collection can only have 40 indices defined.</li>
+				<li>Queries only use one index at a time.</li>
+				<li>Map/Reduce does not use indices.</li>
+				<li>Most RegEx queries will not use an index.</li>
+			</ul>
+			
+			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Indexes">http://www.mongodb.org/display/DOCS/Indexes</a>
+		</div>
+		
+		
+		
+		<div class="slide">
+			<h1>Indexing (cont.)</h1>
+			<pre class="brush:js">
+				// create an index on the Username attribute
+				db.User.ensureIndex({ Username: 1 });
+				
+				// create a unique index on the Username attribute
+				db.User.ensureIndex({ Username: 1 }, { unique: true });
+				
+				// create a multi-attribute index
+				db.User.ensureIndex({ Username: 1, "Department.ID": 1 });
+				
+				// rebuilding an index
+				db.User.reIndex();
+				
+				// dropping an index
+				db.User.dropIndexes();
+				db.User.dropIndex({ Username: 1 })
 			</pre>
 		</div>
 		
@@ -303,13 +327,13 @@
 			<h1>Map/Reduce</h1>
 			<p>
 				In MongoDB Map/Reduce works by taking map and reduce functions and generating
-				a new collection.  This collection can be temporary or be made permanent.  This is slightly
-				different than Map/Reduce implementations in other NoSQL platforms like CouchDB.
+				a new collection.  This collection can be temporary or be made permanent.
 			</p>
 			<pre class="brush:js">
 				var m = function () { 
 					this.Tags.forEach(function (t) { 
-						emit(t, { count: 1 }) }) 
+						emit(t, { count: 1 });
+					});
 				};
 				var r = function (k, v) {
 					var total = 0;
@@ -317,8 +341,9 @@
 						total += v[i].count;
 					}
 					return { count: total }
-				}
-				db.Posts.mapReduce(m, r, "TagCount");
+				};
+				var mr = db.Posts.mapReduce(m, r);
+				db[mr.result].find();
 			</pre>
 			<a class="doclink" href="http://www.mongodb.org/display/DOCS/MapReduce">http://www.mongodb.org/display/DOCS/MapReduce</a>
 		</div>
@@ -334,6 +359,76 @@
 				<li>Like BSON, GridFS is implemented in the driver and supported by the server.</li>
 			</ul>
 			<a class="doclink" href="http://www.mongodb.org/display/DOCS/GridFS+Specification">GridFS Specification</a>
+		</div>
+		
+		
+		
+		<div class="slide">
+			<h1>Performance</h1>
+			<div class="vcenter text-center">It's Fast.</div>
+		</div>
+		
+		
+		
+		<div class="slide">
+			<h1>Import/Export/Backup</h1>
+			<p>The MongoDB distribution comes with the following administrative tools:</p>
+			<ul>
+				<li>mongoimport: Imports a collection into MongoDB from JSON or CSV formats.</li>
+				<li>mongoexport: Exports a collection from MongoDB to JSON or CSV format.</li>
+				<li>mongodump: Dumps an entire database or collection in binary format.</li>
+				<li>mongorestore: Restores the contents of a mongodump file to a database.</li>
+				<li>copyDatabase Command: Copys a database from one server to another.</li>
+			</ul>
+			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Import+Export+Tools">http://www.mongodb.org/display/DOCS/Import+Export+Tools</a>
+		</div>
+		
+		
+		
+		<div class="slide">
+			<h1>Replication</h1>
+			<ul>
+				<li>MongoDB supports replication in two configurations: Master/Slave and Replica Pairs.</li>
+				<li>Only the master is active for writes though which database is the master can be changed at will.</li>
+				<li>Replicating data to the slave databases can be done with a delay if desired.</li>
+			</ul>
+			<p>Setting up basic replication is extremely easy:</p>
+			<pre class="brush:js">
+				// start the master
+				mongod --master
+				
+				// start the slave
+				mongod --slave --source localhost:27017
+			</pre>
+			<p>There are a number of other configuration options for delayed replication, etc.</p>
+			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Replication">http://www.mongodb.org/display/DOCS/Replication</a>
+		</div>
+		
+		
+		
+		<div class="slide">
+			<h1>Sharding</h1>
+			<div class="vcenter text-center">Available in alpha now, releasing in version 1.6.</div>
+		</div>
+		
+		
+		
+		<div class="slide">
+			<h1>Profiling</h1>
+			
+		</div>
+		
+		
+		
+		<div class="slide">
+			<h1>Support</h1>
+			<img src="Images/10gen.png" style="width: 5em; border: 20px solid #fff; border-radius: 5px;" />
+			<br/><br/>
+			<ul>
+				<li>The open source development of MongoDB is funded by 10gen who also offer commercial support, training, and consulting.</li>  
+				<li>The mailing list is extremely active and getting free community support is usually very easy.</li>  
+				<li>Documentation is fairly extensive at <a href="http://www.mongodb.org">mongodb.org</a>.</li>
+			</ul>
 		</div>
 		
 		
@@ -377,42 +472,6 @@
 				</tbody>
 			</table>
 			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Drivers">http://www.mongodb.org/display/DOCS/Drivers</a>
-		</div>
-		
-		
-		
-		<div class="slide">
-			<h1>Performance</h1>
-			<div class="vcenter text-center">It's Fast.</div>
-		</div>
-		
-		
-		
-		<div class="slide">
-			<h1>Import/Export/Backup</h1>
-			<p>The MongoDB distribution comes with the following administrative tools:</p>
-			<ul>
-				<li>mongoimport: Imports a collection into MongoDB from JSON or CSV formats.</li>
-				<li>mongoexport: Exports a collection from MongoDB to JSON or CSV format.</li>
-				<li>mongodump: Dumps an entire database or collection in binary format.</li>
-				<li>mongorestore: Restores the contents of a mongodump file to a database.</li>
-				<li>copyDatabase Command: Copys a database from one server to another.</li>
-			</ul>
-			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Import+Export+Tools">http://www.mongodb.org/display/DOCS/Import+Export+Tools</a>
-		</div>
-		
-		
-		
-		<div class="slide">
-			<h1>Replication</h1>
-			
-		</div>
-		
-		
-		
-		<div class="slide">
-			<h1>Sharding</h1>
-			
 		</div>
 		
 		

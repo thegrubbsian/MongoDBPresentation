@@ -119,6 +119,7 @@
 				<li>Collections are just named sets of root documents.</li>
 				<li>You might equate a document with a rows and collections with tables.</li>
 				<li>Collections can contain documents with varying shapes.</li>
+				<li>Individual documents may not exceed 4Mb in size.</li>
 			</ul>
 		</div>
 
@@ -305,6 +306,25 @@
 				a new collection.  This collection can be temporary or be made permanent.  This is slightly
 				different than Map/Reduce implementations in other NoSQL platforms like CouchDB.
 			</p>
+			<pre class="brush:js">
+				// C
+				var m = function () { emit(this.LastName); }
+				var r = function (k, v) { return 1; }
+				db.Users.mapReduce(m, r, { query: { "Department.Name": "IT" } })
+			</pre>
+		</div>
+		
+		
+		
+		<div class="slide">
+			<h1>GridFS</h1>
+			<ul>
+				<li>Provides a way to store large binary data across multiple documents.</li>
+				<li>Allows for range operations, such as fetching the first N bytes.</li>
+				<li>Works by creating a meta-data collection, and then N file collections.</li>
+				<li>Like BSON, GridFS is implemented in the driver and supported by the server.</li>
+			</ul>
+			<a class="doclink" href="http://www.mongodb.org/display/DOCS/GridFS+Specification">GridFS Specification</a>
 		</div>
 		
 		
@@ -360,8 +380,16 @@
 		
 		
 		<div class="slide">
-			<h1>Administration</h1>
-			
+			<h1>Import/Export/Backup</h1>
+			<p>The MongoDB distribution comes with the following administrative tools:</p>
+			<ul>
+				<li>mongoimport: Imports a collection into MongoDB from JSON or CSV formats.</li>
+				<li>mongoexport: Exports a collection from MongoDB to JSON or CSV format.</li>
+				<li>mongodump: Dumps an entire database or collection in binary format.</li>
+				<li>mongorestore: Restores the contents of a mongodump file to a database.</li>
+				<li>copyDatabase Command: Copys a database from one server to another.</li>
+			</ul>
+			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Import+Export+Tools">http://www.mongodb.org/display/DOCS/Import+Export+Tools</a>
 		</div>
 		
 		

@@ -87,8 +87,13 @@
 				<li>Your data is dynamic in some way.</li>
 				<li>You can live with relaxed ACID compliance (BASE).</li>
 			</ul>
-			<br/><br/>
+		</div>
+		
+		
+		
+		<div class="slide">
 			<h1>Anti-Use Cases</h1>
+			<p>You probably don't want to use MongoDB if:</p>
 			<ul>
 				<li>Your domain is inherently relational and nested structures don't make sense.</li>
 				<li>You have complicated reporting needs.</li>
@@ -205,7 +210,7 @@
 			<ul>
 				<li>Every root document must have an <code>_id</code> property.</li>
 				<li>MongoDB uses a special BSON type called ObjectId to uniquely identify documents.</li>
-				<li>You do not have to use ObjectId but it is very useful</li>
+				<li>You can use types other than ObjectId for the <code>_id</code> property.</li>
 				<li>If you do not assign a value for <code>_id</code> the database will create the attribute for you.</li>
 			</ul>
 			
@@ -228,9 +233,14 @@
 		
 		<div class="slide">
 			<h1>Commands and the Shell</h1>
-			<ul>
-				<li><li>
-			</ul>
+			<p>Commands are issued to the server as MongoDB documents:</p>
+			<pre class="brush:js">
+				
+			</pre>
+			<p>
+				MongoDB comes with an interactive JavaScript based shell that is the easiest
+				way to interact with the database for development and administration.
+			</p>
 		</div>
 		
 		

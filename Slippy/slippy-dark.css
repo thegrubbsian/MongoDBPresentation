@@ -191,3 +191,9 @@ a.doclink {
 	margin-top: 1em;
 	color: #cac9f9;
 }
+
+img.inline-image {
+	border: 1em solid #fff;
+	border-radius: 0.5em;
+	width: 60%;
+}

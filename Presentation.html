@@ -76,33 +76,6 @@
         </div>
 
 
-		
-		<div class="slide">
-			<h1>Use Cases</h1>
-			<p>You might want to consider MongoDB if:</p>
-			<ul>
-				<li>You're dealing with document/nested style data.</li>
-				<li>You'd rather scale horizontally than get a bigger server.</li>
-				<li>You have a rapid write scenario.</li>
-				<li>Your data is dynamic in some way.</li>
-				<li>You can live with relaxed ACID compliance (BASE).</li>
-			</ul>
-		</div>
-		
-		
-		
-		<div class="slide">
-			<h1>Anti-Use Cases</h1>
-			<p>You probably don't want to use MongoDB if:</p>
-			<ul>
-				<li>Your domain is inherently relational and nested structures don't make sense.</li>
-				<li>You have complicated reporting needs.</li>
-				<li>You need 100% ACID compliance.</li>
-				<li>Your DBA is an old school curmudgeon.</li>
-			</ul>
-		</div>
-		
-
 
 		<div class="slide">
 			<h1>Who's Using It</h1>
@@ -142,6 +115,62 @@
 			</div>
 			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Production+Deployments">http://www.mongodb.org/display/DOCS/Production+Deployments</a>
 		</div>
+
+
+		
+		<div class="slide">
+			<h1>Use Cases</h1>
+			<p>You might want to consider MongoDB if:</p>
+			<ul>
+				<li>You're dealing with document/nested style data.</li>
+				<li>You'd rather scale horizontally than get a bigger server.</li>
+				<li>You have a rapid write scenario.</li>
+				<li>Your data is dynamic in some way.</li>
+				<li>You can live with relaxed ACID compliance (BASE).</li>
+			</ul>
+		</div>
+		
+		
+		
+		<div class="slide">
+			<h1>Anti-Use Cases</h1>
+			<p>You probably don't want to use MongoDB if:</p>
+			<ul>
+				<li>Your domain is inherently relational and nested structures don't make sense.</li>
+				<li>You have complicated reporting needs.</li>
+				<li>You need 100% ACID compliance.</li>
+				<li>Your DBA is an old school curmudgeon.</li>
+			</ul>
+		</div>
+		
+		
+		
+		<div class="slide">
+			<h1>A Few Usage Scenarios</h1>
+			<img src="Images/usage-scenarios.png" class="inline-image" />
+			<p>
+				Because MongoDB is so flexible and deployment/install is so simple, it lends itself
+				to a number of potential use cases for scaling and optimization.
+			</p>
+		</div>
+		
+		
+		
+		<div class="slide">
+			<h1>MongoDB Server</h1>
+			<ul>
+				<li>The MongoDB server runs as a console or daemon/service.</li>
+				<li>The server will use one thread per TCP connection.</li>
+				<li>Most drivers implement some kind of connection pooling, this is the recommended use.</li>
+				<li>Data is stored in two files on disk.  The default location is '/data/db' but can be changed.</li>
+				<li>While the server runs it manages a memory mapped file per database.</li>
+				<li>Mongo will consume as much memory as makes sense but will gracefully handle lower memory situations.</li>
+			</ul>
+			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Connections">http://www.mongodb.org/display/DOCS/Connections</a>
+			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Starting+and+Stopping+Mongo">http://www.mongodb.org/display/DOCS/Starting+and+Stopping+Mongo</a>
+		</div>
+		
+		
 		
 		<div class="slide">
 			<h1>Documents and Collections</h1>
@@ -181,7 +210,6 @@
 				"\x16\x00\x00\x00\x02hello\x00
 				\x06\x00\x00\x00world\x00\x00"
 			</pre>
-			
 			<pre class="brush:text">
 				{"SomeArray": ["awesome", 5.05, 1986]}
 				
@@ -191,11 +219,8 @@
 				 \x14@\x102\x00\xc2\x07\x00\x00
 				 \x00\x00"
 			</pre>
-			
 			<a class="doclink" href="http://bsonspec.org">http://bsonspec.org</a>
-			
 			<br/>
-			
 			<ul>
 				<li>Serialization and deserialization of data structures occurs in the language drivers, not on the server itself.</li>
 				<li>Each driver may implement the BSON specification in a manner that is most efficient for that platform.</li>
@@ -213,20 +238,15 @@
 				<li>You can use types other than ObjectId for the <code>_id</code> property.</li>
 				<li>If you do not assign a value for <code>_id</code> the database will create the attribute for you.</li>
 			</ul>
-			
 			<br/><br/>
-			
 			<p>ObjectId is a 12-byte unique identifier made up of the following:</p>
-			
 			<table class="table"> 
 			<tbody><tr><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td>
 			<td>7</td><td>8</td><td>9</td><td>10</td><td>11</td></tr> 
 			<tr><td colspan="4">time</td><td colspan="3">machine</td> 
 			<td colspan="2">pid</td><td colspan="3">inc</td></tr> 
 			</tbody></table>
-			
 			<a class="doclink" href="http://www.mongodb.org/display/DOCS/Object+IDs">http://www.mongodb.org/display/DOCS/Object+IDs</a>
-			
 		</div>
 		
 		
@@ -235,7 +255,7 @@
 			<h1>Commands and the Shell</h1>
 			<p>Commands are issued to the server as MongoDB documents:</p>
 			<pre class="brush:js">
-				
+				{ $query: {  } }
 			</pre>
 			<p>
 				MongoDB comes with an interactive JavaScript based shell that is the easiest
@@ -248,7 +268,7 @@
 		<div class="slide">
 			<h1>Query Syntax</h1>
 			<p>
-				MongoDB has a unique but powerful query syntax.  Even so most of the language
+				MongoDB has a unique but powerful query syntax.  Even so, most of the language
 				drivers abstract it in some way.
 			</p>
 			<pre class="brush:js">
@@ -465,7 +485,7 @@
 		
 		<div class="slide">
 			<h1>Support</h1>
-			<img src="Images/10gen.png" style="width: 5em; border: 20px solid #fff; border-radius: 5px;" />
+			<img src="Images/10gen.png" class="inline-image" style="width: 5em;" />
 			<br/><br/>
 			<ul>
 				<li>The open source development of MongoDB is funded by 10gen who also offer commercial support, training, and consulting.</li>  
@@ -521,7 +541,9 @@
 		
 		<div class="slide">
 			<h1>NoRM</h1>
-			
+			<ul>
+				<li>Connection pooling</li>
+			</ul>
 		</div>
 		
 		

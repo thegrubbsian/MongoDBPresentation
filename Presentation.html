@@ -253,14 +253,12 @@
 		
 		<div class="slide">
 			<h1>Commands and the Shell</h1>
-			<p>Commands are issued to the server as MongoDB documents:</p>
-			<pre class="brush:js">
-				{ $query: {  } }
-			</pre>
-			<p>
-				MongoDB comes with an interactive JavaScript based shell that is the easiest
-				way to interact with the database for development and administration.
-			</p>
+			<ul>
+				<li>Commands are issued to the server as MongoDB documents.</li>
+				<li>MongoDB comes with an interactive JavaScript based shell that is the easiest
+				way to interact with the database for development and administration.</li>
+			</ul>
+			<a class="doclink" href="http://www.mongodb.org/display/DOCS/mongo+-+The+Interactive+Shell">http://www.mongodb.org/display/DOCS/mongo+-+The+Interactive+Shell</a>
 		</div>
 		
 		
@@ -476,9 +474,18 @@
 		
 		<div class="slide">
 			<h1>Profiling</h1>
-			<ul>
-				<li></li>
-			</ul>
+			<p>Enable profiling from the shell:</p>
+			<pre class="brush:js">
+				// profiling levels: 
+				// 0 = off
+				// 1 = operations > 100ms
+				// 2 = all operations
+				db.setProfilingLevel(2);
+			</pre>
+			<p>
+				The profiling logs to the <code>system.profile</code> collection and you can perform
+				any query against the documents in this collection.
+			</p>
 		</div>
 		
 		
@@ -541,8 +548,15 @@
 		
 		<div class="slide">
 			<h1>NoRM</h1>
+			<img src="Images/normLogo.png" style="width: 10em;">
+			<p>NoRM is a .NET library for interacting with MongoDB; it provides the following:</p>
 			<ul>
-				<li>Connection pooling</li>
+				<li>Strongly Typed Collection Abstraction</li>
+				<li>Complete LINQ Provider for MongoDB Queries</li>
+				<li>Connection Pooling</li>
+				<li>High Performance BSON Serializer</li>
+				<li>An Expando Implementation for Dynamic Data</li>
+				<li>Configuration API for Collection/Property Aliasing</li>
 			</ul>
 		</div>
 		

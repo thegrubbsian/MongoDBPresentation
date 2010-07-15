@@ -139,6 +139,7 @@
 				<li>Your domain is inherently relational and nested structures don't make sense.</li>
 				<li>You have complicated reporting needs.</li>
 				<li>You need 100% ACID compliance.</li>
+				<li>You require traditional transactions over multiple collections/tables.</li>
 				<li>Your DBA is an old school curmudgeon.</li>
 			</ul>
 		</div>
@@ -193,8 +194,8 @@
 			</pre>
 			<ul>
 				<li>Collections are just named sets of root documents.</li>
-				<li>You might equate a document with a rows and collections with tables.</li>
-				<li>Collections can contain documents with varying shapes.</li>
+				<li>You might equate a document with a row and collections with tables.</li>
+				<li>Collections can contain documents of varying shapes.</li>
 				<li>Individual documents may not exceed 4Mb in size.</li>
 			</ul>
 		</div>
@@ -234,7 +235,7 @@
 			<h1>Document Identity</h1>
 			<ul>
 				<li>Every root document must have an <code>_id</code> property.</li>
-				<li>MongoDB uses a special BSON type called ObjectId to uniquely identify documents.</li>
+				<li>MongoDB implements a special BSON type called ObjectId to uniquely identify documents.</li>
 				<li>You can use types other than ObjectId for the <code>_id</code> property.</li>
 				<li>If you do not assign a value for <code>_id</code> the database will create the attribute for you.</li>
 			</ul>
@@ -329,6 +330,9 @@
 				
 				// using functions to locate documents (won't use indexes)
 				db.User.find(function () { return this.Department.Name == "IT"; });
+				
+				// return only the first n for a child array
+				db.User.find({}, { PreviousJobs: { $slice: 5 } });
 			</pre>
 		</div>
 		

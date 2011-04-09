@@ -197,3 +197,10 @@ img.inline-image {
 	border-radius: 0.5em;
 	width: 60%;
 }
+
+img.grey-bg {
+  background-color: #e0e0e0;
+  border: 0.3em solid #e0e0e0;
+  border-radius: 0.2em;
+  -webkit-border-radius: 0.5em;
+}

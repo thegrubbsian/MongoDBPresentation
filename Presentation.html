@@ -173,7 +173,7 @@
       <p>You probably don't want to use MongoDB if:</p>
       <ul>
         <li>Your domain is inherently relational and nested structures don't make sense.</li>
-        <li>You have complicated reporting needs.</li>
+        <li>You're tied to a relational reporting solution.</li>
         <li>You need 100% ACID compliance.</li>
         <li>You require traditional transactions over multiple collections/tables.</li>
         <li>Your DBA is an old school curmudgeon.</li>
@@ -183,7 +183,7 @@
     
     
     <div class="slide">
-      <h1>A Few Usage Scenarios</h1>
+      <h1>A Few Simple Usage Scenarios</h1>
       <img src="Images/usage-scenarios.png" class="inline-image" />
       <p>
         Because MongoDB is so flexible and deployment/install is so simple, it lends itself
@@ -232,7 +232,7 @@
         <li>Collections are just named sets of root documents.</li>
         <li>You might equate a document with a row and collections with tables.</li>
         <li>Collections can contain documents of varying shapes.</li>
-        <li>Depending on version, individual documents may not exceed 4-16 Mb in size.</li>
+        <li>Individual documents may not exceed 16 Mb in size.</li>
       </ul>
     </div>
 
@@ -295,6 +295,8 @@
         <li>MongoDB comes with an interactive JavaScript based shell that is the easiest
         way to interact with the database for development and administration.</li>
       </ul>
+      <br/><br/>
+      <i>The following slides are examples of the query syntax as issued within the shell.</i>
       <a class="doclink" href="http://www.mongodb.org/display/DOCS/mongo+-+The+Interactive+Shell">http://www.mongodb.org/display/DOCS/mongo+-+The+Interactive+Shell</a>
     </div>
     
@@ -426,25 +428,51 @@
       <h1>Map/Reduce</h1>
       <p>
         In MongoDB Map/Reduce works by taking map and reduce functions and generating
-        a new collection.  This collection can be temporary or be made permanent.
+        a new collection or returning the results "inline".
       </p>
       <pre class="brush:js">
-        var m = function () { 
-          this.Tags.forEach(function (t) { 
-            emit(t, { count: 1 });
+        var map = function () { 
+          this.Sales.forEach(function (sale) { 
+            emit(sale.Date, { count: 1 });
           });
         };
-        var r = function (k, v) {
+        var reduce = function (key, value) {
           var total = 0;
-          for (var i = 0; i < v.length; i++) {
-            total += v[i].count;
+          for (var i = 0; i < value.length; i++) {
+            total += value[i].count;
           }
           return { count: total }
         };
-        var mr = db.Posts.mapReduce(m, r);
+        var mr = db.Sales.mapReduce(map, reduce);
         db[mr.result].find();
       </pre>
       <a class="doclink" href="http://www.mongodb.org/display/DOCS/MapReduce">http://www.mongodb.org/display/DOCS/MapReduce</a>
+    </div>
+
+
+
+    <div class="slide">
+      <h1>Map/Reduce (cont.)</h1>
+      <p>In the previous example, the following result set would be produced.</p>
+      <pre class="brush:js">
+        { _id: "1/1/2011", count: 32 },
+        { _id: "1/2/2011", count: 45 },
+        { _id: "1/3/2011", count: 27 },
+        { _id: "1/4/2011", count: 66 }
+      </pre>
+      <p>There are also some interesting options for Map/Reduce scenarios:</p>
+      <p><b>Inline:</b> Returns the result set inline.</p>
+      <pre class="brush:js">
+        db.Sales.mapReduce(map, reduce, { out: { inline: 1 }});
+      </pre>
+      <p><b>Merge:</b> Merges the new result set with an existing collection (overwrites existing keys).</p>
+      <pre class="brush:js">
+        db.Sales.mapReduce(map, reduce, { out: { merge: "SalesTrends" }});
+      </pre>
+      <p><b>Reduce:</b> Same as 'merge' except it applies the reduce function against existing keys.</p>
+      <pre class="brush:js">
+        db.Sales.mapReduce(map, reduce, { out: { reduce: "SalesTrends" }});
+      </pre>
     </div>
     
     
@@ -465,8 +493,8 @@
     <div class="slide">
       <h1>Performance</h1>
       <p>Here are some potentially controversial performance graphs comparing MongoDB with SQL Server.  Regardless, it's freaking fast!</p>
-      <img src="Images/perf_inserts.png" style="width: 12em;" />
-      <img src="Images/perf_queries.png" style="width: 12em;">
+      <img src="Images/perf_inserts.png" style="width: 10em;" />
+      <img src="Images/perf_queries.png" style="width: 10em;">
       <br />
       <a class="doclink" href="http://www.michaelckennedy.net/blog/2010/04/29/MongoDBVsSQLServer2008PerformanceShowdown.aspx">http://www.michaelckennedy.net/blog/2010/04/29/MongoDBVsSQLServer2008PerformanceShowdown.aspx</a>
     </div>

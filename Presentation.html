@@ -153,7 +153,7 @@
     </div>
 
 
-    
+
     <div class="slide">
       <h1>Use Cases</h1>
       <p>You might want to consider MongoDB if:</p>
@@ -165,9 +165,9 @@
         <li>You can live with relaxed ACID compliance (BASE).</li>
       </ul>
     </div>
-    
-    
-    
+
+
+
     <div class="slide">
       <h1>Anti-Use Cases</h1>
       <p>You probably don't want to use MongoDB if:</p>
@@ -179,9 +179,9 @@
         <li>Your DBA is an old school curmudgeon.</li>
       </ul>
     </div>
-    
-    
-    
+
+
+
     <div class="slide">
       <h1>A Few Simple Usage Scenarios</h1>
       <img src="Images/usage-scenarios.png" class="inline-image" />
@@ -190,9 +190,9 @@
         to a number of potential use cases for scaling and optimization.
       </p>
     </div>
-    
-    
-    
+
+
+
     <div class="slide">
       <h1>MongoDB Server</h1>
       <ul>
@@ -202,13 +202,14 @@
         <li>Data is stored in two files on disk.  The default location is '/data/db' but can be changed.</li>
         <li>While the server runs it manages a memory mapped file per database.</li>
         <li>Mongo will consume as much memory as makes sense but will gracefully handle lower memory situations.</li>
+        <li>Using the --dur option when starting the server will put MongoDB in journaling mode which is the recommended approach for single server instances as this is vastly more durable.</li>
       </ul>
       <a class="doclink" href="http://www.mongodb.org/display/DOCS/Connections">http://www.mongodb.org/display/DOCS/Connections</a>
       <a class="doclink" href="http://www.mongodb.org/display/DOCS/Starting+and+Stopping+Mongo">http://www.mongodb.org/display/DOCS/Starting+and+Stopping+Mongo</a>
     </div>
-    
-    
-    
+
+
+
     <div class="slide">
       <h1>Documents and Collections</h1>
       <p>MongoDB stores data in documents.  Think of them as JSON structures.</p>
@@ -243,13 +244,13 @@
       <p>MongoDB stores data in BSON, which is a JSON-like binary format.</p>
       <pre class="brush:text">
         {"hello": "world"}
-        
+
         "\x16\x00\x00\x00\x02hello\x00
         \x06\x00\x00\x00world\x00\x00"
       </pre>
       <pre class="brush:text">
         {"SomeArray": ["awesome", 5.05, 1986]}
-        
+
         "1\x00\x00\x00\x04SomeArray\x00&\x00
          \x00\x00\x020\x00\x08\x00\x00 
          \x00awesome\x00\x011\x00333333
@@ -262,8 +263,8 @@
         <li>Serialization and deserialization of data structures occurs in the language drivers, not on the server itself.</li>
         <li>Each driver may implement the BSON specification in a manner that is most efficient for that platform.</li>
       </ul>
-      
-        </div>
+
+    </div>
 
 
 
@@ -285,9 +286,9 @@
       </tbody></table>
       <a class="doclink" href="http://www.mongodb.org/display/DOCS/Object+IDs">http://www.mongodb.org/display/DOCS/Object+IDs</a>
     </div>
-    
-    
-    
+
+
+
     <div class="slide">
       <h1>Commands and the Shell</h1>
       <ul>
@@ -299,9 +300,9 @@
       <i>The following slides are examples of the query syntax as issued within the shell.</i>
       <a class="doclink" href="http://www.mongodb.org/display/DOCS/mongo+-+The+Interactive+Shell">http://www.mongodb.org/display/DOCS/mongo+-+The+Interactive+Shell</a>
     </div>
-    
-    
-    
+
+
+
     <div class="slide">
       <h1>Query Syntax</h1>
       <p>
@@ -311,71 +312,71 @@
       <pre class="brush:js">
         // where first name is 'Bill'
         db.User.find({ FirstName: "Bill" });
-        
+
         // where first name is 'Bill' return only _id and LastName
         db.User.find({ FirstName: "Bill" }, { _id: 1, LastName: 1 });
-        
+
         // where age is greater than 35
         db.User.find({ Age: { $gt: 35 } });
-        
+
         // where department's director is 'John'
         db.User.find({ "Department.Director.FirstName": "John" });
-        
+
         // sort by last name ascending and first name descending
         db.User.find().sort({ LastName: 1, FirstName: -1 });
       </pre>
       <a class="doclink" href="http://www.mongodb.org/display/DOCS/Querying">http://www.mongodb.org/display/DOCS/Querying</a>
       <a class="doclink" href="http://www.mongodb.org/display/DOCS/SQL+to+Mongo+Mapping+Chart">http://www.mongodb.org/display/DOCS/SQL+to+Mongo+Mapping+Chart</a>
     </div>
-    
-    
-    
+
+
+
     <div class="slide">
       <h1>Query Syntax (cont.)</h1>
       <pre class="brush:js">
         // limiting results
         db.User.find({ Age: { $gt: 5 } }).skip(20).limit(10);
         db.User.find({ Age: { $gt: 5 } }, 20, 10);
-        
+
         // return the count of a query
         db.User.find({ "Department.Name": "IT" }).count();
-        
+
         // return a distinct list of a single value
         db.User.distinct("LastName");
-        
+
         // check the existence of at least one document
         db.User.find({ Username: { $exists: "sbarrows" } });
-        
+
         // check if a value is in a list
         db.User.find({ "Department.Number": { $in: [75,22,34,102] } });
       </pre>
       <a class="doclink" href="http://www.mongodb.org/display/DOCS/Advanced+Queries">http://www.mongodb.org/display/DOCS/Advanced+Queries</a>
     </div>
-    
-    
-    
+
+
+
     <div class="slide">
       <h1>Query Syntax (cont. again)</h1>
       <pre class="brush:js">
         // inserting a new document
         db.User.save({ FirstName: "William", LastName: "Edwards" });
-        
+
         // updating a property of a document
         db.User.update({ LastName: "Edwards" }, { FirstName: "Bill" });
-        
+
         // deleting a document
         db.User.remove({ Age: { $lt: 35 } });
-        
+
         // using functions to locate documents (won't use indexes)
         db.User.find(function () { return this.Department.Name == "IT"; });
-        
+
         // return only the first n for a child array
         db.User.find({}, { PreviousJobs: { $slice: 5 } });
       </pre>
     </div>
-    
-    
-    
+
+
+
     <div class="slide">
       <h1>Indexing</h1>
       <ul>
@@ -385,9 +386,9 @@
         <li>An index on an embedded array will index each item in the array. (Very powerful especially with sparse attributes).</li>
         <li>Supports geospatial indexing which enables additional query operators.</li>
       </ul>
-      
+
       <br/><br/>
-      
+
       <h3>Current Limitations</h3>
       <ul>
         <li>A collection can only have 40 indices defined.</li>
@@ -395,35 +396,35 @@
         <li>Map/Reduce does not use indices.</li>
         <li>Most RegEx queries will not use an index.</li>
       </ul>
-      
+
       <a class="doclink" href="http://www.mongodb.org/display/DOCS/Indexes">http://www.mongodb.org/display/DOCS/Indexes</a>
     </div>
-    
-    
-    
+
+
+
     <div class="slide">
       <h1>Indexing (cont.)</h1>
       <pre class="brush:js">
         // create an index on the Username attribute
         db.User.ensureIndex({ Username: 1 });
-        
+
         // create a unique index on the Username attribute
         db.User.ensureIndex({ Username: 1 }, { unique: true });
-        
+
         // create a multi-attribute index
         db.User.ensureIndex({ Username: 1, "Department.ID": 1 });
-        
+
         // rebuilding an index
         db.User.reIndex();
-        
+
         // dropping an index
         db.User.dropIndexes();
         db.User.dropIndex({ Username: 1 })
       </pre>
     </div>
-    
-    
-    
+
+
+
     <div class="slide">
       <h1>Map/Reduce</h1>
       <p>
@@ -460,7 +461,6 @@
         { _id: "1/3/2011", count: 27 },
         { _id: "1/4/2011", count: 66 }
       </pre>
-      <p>There are also some interesting options for Map/Reduce scenarios:</p>
       <p><b>Inline:</b> Returns the result set inline.</p>
       <pre class="brush:js">
         db.Sales.mapReduce(map, reduce, { out: { inline: 1 }});
@@ -469,14 +469,14 @@
       <pre class="brush:js">
         db.Sales.mapReduce(map, reduce, { out: { merge: "SalesTrends" }});
       </pre>
-      <p><b>Reduce:</b> Same as 'merge' except it applies the reduce function against existing keys.</p>
+      <p><b>Reduce:</b> Same as 'merge' but applies the reduce function for existing keys.</p>
       <pre class="brush:js">
         db.Sales.mapReduce(map, reduce, { out: { reduce: "SalesTrends" }});
       </pre>
     </div>
-    
-    
-    
+
+
+
     <div class="slide">
       <h1>GridFS</h1>
       <ul>
@@ -487,9 +487,9 @@
       </ul>
       <a class="doclink" href="http://www.mongodb.org/display/DOCS/GridFS+Specification">GridFS Specification</a>
     </div>
-    
-    
-    
+
+
+
     <div class="slide">
       <h1>Performance</h1>
       <p>Here are some potentially controversial performance graphs comparing MongoDB with SQL Server.  Regardless, it's freaking fast!</p>
@@ -498,9 +498,9 @@
       <br />
       <a class="doclink" href="http://www.michaelckennedy.net/blog/2010/04/29/MongoDBVsSQLServer2008PerformanceShowdown.aspx">http://www.michaelckennedy.net/blog/2010/04/29/MongoDBVsSQLServer2008PerformanceShowdown.aspx</a>
     </div>
-    
-    
-    
+
+
+
     <div class="slide">
       <h1>Import/Export/Backup</h1>
       <p>The MongoDB distribution comes with the following administrative tools:</p>
@@ -513,9 +513,9 @@
       </ul>
       <a class="doclink" href="http://www.mongodb.org/display/DOCS/Import+Export+Tools">http://www.mongodb.org/display/DOCS/Import+Export+Tools</a>
     </div>
-    
-    
-    
+
+
+
     <div class="slide">
       <h1>Replication - Master/Slave</h1>
       <img src="images/master-slave.png" style="width: 8em; float: left; margin: 0 2em 1em 0;" />
@@ -533,20 +533,42 @@
     </div>
 
 
-  
+
     <div class="slide">
       <h1>Replication - Replica Sets</h1>
       <img src="images/replica-set.png" style="width: 8em; float: left; margin: 0 2em 1em 0;" />
       <ul>
-        
+        <li>Replica sets can contain more than one read-only server.</li>
+        <li>In replica sets servers are in one of three roles: Primary, Secondary, and Passive.</li>
+        <li><b>Primary:</b> Support read/write operations.</li>
+        <li><b>Secondary:</b> Support read operations and can be elected as Primary in the event of failures.</li>
+        <li><b>Passive:</b> Support read operations but cannot be elected as Primary.</li>
       </ul>
+      <pre class="brush:js">
+        mongod --replSet setname
+        db.runCommand({ replSetInitiate: {
+          members: [
+            { _id: 0, host: "db1.acme.com" },
+            { _id: 0, host: "db2.acme.com" },
+            { _id: 0, host: "db3.acme.com", priority: 0 } // passive
+          ]
+        }})
+      </pre>
+      <a class="doclink" href="http://www.mongodb.org/display/DOCS/Replica+Sets">http://www.mongodb.org/display/DOCS/Replica+Sets</a>
     </div>
-    
-    
-    
+
+
+
     <div class="slide">
       <h1>Sharding</h1>
-      <div class="vcenter text-center">Available in alpha now, releasing in next major version.</div>
+      <p>Sharding is the scale-out mechanism that MongoDB provides for splitting collections over multiple machines.</p>
+      <img src="images/sharding.png" style="width: 10em; float: left; margin: 0 2em 1em 0;" />
+      <ul>
+        <li>Sharding divides up a collection across many machines in a key space.</li>
+        <li>The MongoS process acts as a router and appears as a single process to client requests.</li>
+        <li>The recommended practice is to keep shards in a replica set or use the --dur flag for single server shards.</li>
+      </ul>
+      <a class="doclink" href="http://www.mongodb.org/display/DOCS/Sharding+Introduction">http://www.mongodb.org/display/DOCS/Sharding+Introduction</a>
     </div>
     
     
@@ -598,7 +620,7 @@
             <td>JavaScript</td>
           </tr>
           <tr>
-            <td><a href="http://github.com/samus/mongodb-csharp/tree/master">mongodb-csharp</a></td>
+            <td><a href="http://www.mongodb.org/display/DOCS/CSharp+Language+Center">10gen C# Driver</a></td>
             <td><a href="http://github.com/mongodb/mongo-java-driver/downloads">mongo-java-driver</a></td>
             <td><a href="http://railstips.org/2009/6/27/mongomapper-the-rad-mongo-wrapper">MongoMapper</a></td>
             <td><a href="http://github.com/jeffjenkins/mongo-mapper/tree/master">mongo-mapper</a></td>
@@ -622,9 +644,9 @@
       </table>
       <a class="doclink" href="http://www.mongodb.org/display/DOCS/Drivers">http://www.mongodb.org/display/DOCS/Drivers</a>
     </div>
-    
-    
-    
+
+
+
     <div class="slide">
       <h1>NoRM</h1>
       <img src="Images/normLogo.png" style="width: 10em;">
@@ -638,8 +660,8 @@
         <li>Configuration API for Collection/Property Aliasing</li>
       </ul>
     </div>
-    
-    
+
+
 
     <div class="slide">
       <h1 class="vcenter">}</h1>

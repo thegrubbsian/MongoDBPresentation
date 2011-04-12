@@ -517,22 +517,29 @@
     
     
     <div class="slide">
-      <h1>Replication</h1>
+      <h1>Replication - Master/Slave</h1>
+      <img src="images/master-slave.png" style="width: 8em; float: left; margin: 0 2em 1em 0;" />
       <ul>
-        <li>MongoDB supports replication in two configurations: Master/Slave and Replica Pairs.</li>
-        <li>Only the master is active for writes though which database is the master can be changed at will.</li>
-        <li>Replicating data to the slave databases can be done with a delay if desired.</li>
+        <li>MongoDB avoids multi-master states at all costs to avoid merge conflicts.</li>
+        <li>Therefore in Master/Slave the Slave is read-only.</li>
+        <li>In a state in which Master fails, the drivers should pass read traffic to the Slave.</li>
       </ul>
-      <p>Setting up basic replication is extremely easy:</p>
       <pre class="brush:js">
-        // start the master
         mongod --master
-        
-        // start the slave
         mongod --slave --source localhost:27017
       </pre>
       <p>There are a number of other configuration options for delayed replication, etc.</p>
       <a class="doclink" href="http://www.mongodb.org/display/DOCS/Replication">http://www.mongodb.org/display/DOCS/Replication</a>
+    </div>
+
+
+  
+    <div class="slide">
+      <h1>Replication - Replica Sets</h1>
+      <img src="images/replica-set.png" style="width: 8em; float: left; margin: 0 2em 1em 0;" />
+      <ul>
+        
+      </ul>
     </div>
     
     

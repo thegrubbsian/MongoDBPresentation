@@ -493,8 +493,8 @@
     <div class="slide">
       <h1>Performance</h1>
       <p>Here are some potentially controversial performance graphs comparing MongoDB with SQL Server.  Regardless, it's freaking fast!</p>
-      <img src="Images/perf_inserts.png" style="width: 10em;" />
-      <img src="Images/perf_queries.png" style="width: 10em;">
+      <img src="Images/perf_inserts.png" style="width: 12em;" />
+      <img src="Images/perf_queries.png" style="width: 12em;">
       <br />
       <a class="doclink" href="http://www.michaelckennedy.net/blog/2010/04/29/MongoDBVsSQLServer2008PerformanceShowdown.aspx">http://www.michaelckennedy.net/blog/2010/04/29/MongoDBVsSQLServer2008PerformanceShowdown.aspx</a>
     </div>
@@ -518,7 +518,7 @@
 
     <div class="slide">
       <h1>Replication - Master/Slave</h1>
-      <img src="images/master-slave.png" style="width: 8em; float: left; margin: 0 2em 1em 0;" />
+      <img src="images/master-slave.png" style="width: 10em; float: left; margin: 0 2em 1em 0;" />
       <ul>
         <li>MongoDB avoids multi-master states at all costs to avoid merge conflicts.</li>
         <li>Therefore in Master/Slave the Slave is read-only.</li>
@@ -536,7 +536,7 @@
 
     <div class="slide">
       <h1>Replication - Replica Sets</h1>
-      <img src="images/replica-set.png" style="width: 8em; float: left; margin: 0 2em 1em 0;" />
+      <img src="images/replica-set.png" style="width: 10em; float: left; margin: 0 2em 1em 0;" />
       <ul>
         <li>Replica sets can contain more than one read-only server.</li>
         <li>In replica sets servers are in one of three roles: Primary, Secondary, and Passive.</li>
@@ -562,7 +562,7 @@
     <div class="slide">
       <h1>Sharding</h1>
       <p>Sharding is the scale-out mechanism that MongoDB provides for splitting collections over multiple machines.</p>
-      <img src="images/sharding.png" style="width: 10em; float: left; margin: 0 2em 1em 0;" />
+      <img src="images/sharding.png" style="width: 12em; float: left; margin: 0 2em 1em 0;" />
       <ul>
         <li>Sharding divides up a collection across many machines in a key space.</li>
         <li>The MongoS process acts as a router and appears as a single process to client requests.</li>
@@ -659,6 +659,21 @@
         <li>An Expando Implementation for Dynamic Data</li>
         <li>Configuration API for Collection/Property Aliasing</li>
       </ul>
+    </div>
+
+
+    
+    <div class="slide">
+      <h1>NoRMatic</h1>
+      <p>NoRMatic is a companion library to NoRM that provides some API sugar and additional features.</p>
+      <ul>
+        <li>ActiveRecord style interface</li>
+        <li>Callbacks and Hooks for CRUD operations</li>
+        <li>Soft Deleting</li>
+        <li>Versioning</li>
+        <li>Simple Auditing</li>
+      </ul>
+      <a class="doclink" href="https://github.com/thegrubbsian/NoRMatic">https://github.com/thegrubbsian/NoRMatic</a>
     </div>
 
 
